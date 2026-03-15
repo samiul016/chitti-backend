@@ -2,4 +2,3 @@ fastapi
 uvicorn
 crewai==0.28.8
 google-generativeai
-tiktoken==0.7.0
