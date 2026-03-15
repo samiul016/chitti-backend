@@ -21,11 +21,11 @@ model = genai.GenerativeModel('gemini-1.5-flash')
 @app.get("/ask-ai")
 async def ask_ai(topic: str):
     """
-    এই ফাংশনটি সরাসরি Gemini ব্যবহার করবে, যা অনেক ফাস্ট এবং লাইট।
+    এই ফাংশনটি সরাসরি Gemini ব্যবহার করবে। এটি অনেক ফাস্ট এবং মেমোরি কম নেয়।
     """
     try:
-        # এআই-কে আপনার বিজনেস সম্পর্কে ধারণা দেওয়া
-        prompt = f"আপনি একজন এক্সপার্ট এআই ম্যানেজার। আপনার কাজ হলো এই টাস্কটি সমাধান করা: {topic}। আপনার ইউজারের 'Tech Dental' এবং 'Sale Bangladesh' নামে ব্যবসা আছে। উত্তরটি সুন্দরভাবে গুছিয়ে দিন।"
+        # এআই-কে আপনার বিজনেস সম্পর্কে ইনস্ট্রাকশন দেওয়া
+        prompt = f"আপনি একজন এক্সপার্ট এআই বিজনেস ম্যানেজার। আপনার ইউজারের নাম বকুলে (Boss)। তার 'Tech Dental' এবং 'Sale Bangladesh' নামে ব্যবসা আছে। এই টাস্কটি সমাধান করুন: {topic}। উত্তরটি সুন্দর এবং প্রফেশনালভাবে দিন।"
         
         response = model.generate_content(prompt)
         
@@ -38,4 +38,4 @@ async def ask_ai(topic: str):
 
 @app.get("/")
 def home():
-    return {"message": "Chitti AI Ultra-Lite Online!"}
+    return {"message": "Chitti AI Online is Live and Running!"}
