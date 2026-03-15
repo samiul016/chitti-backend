@@ -1,4 +1,3 @@
 fastapi
 uvicorn
-crewai==0.28.8
 google-generativeai
