@@ -8,7 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# ড্যাশবোর্ড কানেক্ট করার অনুমতি
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,11 +16,9 @@ app.add_middleware(
 )
 
 # Groq ক্লায়েন্ট সেটআপ
-# Render-এর Environment Variables-এ 'GROQ_API_KEY' থাকতে হবে
 client = Groq(api_key=os.environ.get("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"))
 
 def extract_web_content(text):
-    """টেক্সট থেকে ইউআরএল খুঁজে সেটি থেকে মূল কন্টেন্ট বের করা"""
     url_pattern = r'https?://[^\s]+'
     urls = re.findall(url_pattern, text)
     if not urls:
@@ -42,16 +39,15 @@ def extract_web_content(text):
 @app.get("/ask-ai")
 async def ask_ai(topic: str):
     try:
-        # ওয়েবসাইট কন্টেন্ট চেক করা
         web_info = extract_web_content(topic)
         
-        # Groq-কে কমান্ড পাঠানো
+        # এখানে নতুন মডেল 'llama-3.1-8b-instant' ব্যবহার করা হয়েছে
         completion = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant", 
             messages=[
                 {
                     "role": "system", 
-                    "content": "আপনি বকুল ভাইয়ের পার্সোনাল এআই ম্যানেজার। আপনার নলেজে Tech Dental এবং Sale Bangladesh আছে। সব উত্তর বাংলায় দেবেন।"
+                    "content": "আপনি বকুল ভাইয়ের পার্সোনাল এআই ম্যানেজার। Tech Dental এবং Sale Bangladesh আপনার নলেজে আছে। উত্তর বাংলায় দেবেন।"
                 },
                 {
                     "role": "user", 
@@ -71,4 +67,4 @@ async def ask_ai(topic: str):
 
 @app.get("/")
 def home():
-    return {"message": "Chitti AI (Groq Edition) is Live!"}
+    return {"message": "Chitti AI (Updated Edition) is Live!"}
