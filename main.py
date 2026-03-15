@@ -16,7 +16,7 @@ app.add_middleware(
 # Gemini এআই সেটআপ
 api_key = os.getenv("AIzaSyDsroKDVMvKiX6Q6rdfyCocQSfzn1C5-LM")
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-1.5-flash-latest')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 @app.get("/ask-ai")
 async def ask_ai(topic: str):
